@@ -1,0 +1,745 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={6.5in, 10in}]{geometry}
+\usepackage{longtable}
+
+\usepackage{color,xcolor,colortbl}
+\definecolor{cRed}{RGB}{255,166,166}
+\definecolor{cYellow}{RGB}{255,255,100}
+\definecolor{cBlue}{RGB}{170,184,255}
+\definecolor{cGreen}{RGB}{128,224,145}
+\definecolor{cViolet}{RGB}{225,130,235}
+\definecolor{cOrange}{RGB}{255,226,117}
+\definecolor{cGray}{RGB}{230,230,230}
+
+\usepackage{graphicx}
+\usepackage{pstricks,pst-node}
+\psset{unit=1mm}
+\psset{linewidth=0.6pt}
+\psset{arrowsize=3pt}
+\psset{dotsize=1.5pt}
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\title{TCFI Graph Generation}
+\author{Georg Schildbach}
+\date{March 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Table}
+
+% insert generated table here
+
+\centering
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{|p{8cm}|p{8cm}|}
+\hline
+\textbf{TC} & \textbf{Triggered FI}\\
+\hline\hline
+\cellcolor{cGreen}(TC001) traffic congestion& \cellcolor{cGray}(FI001) no capability to form a rescue alley\\\hline
+\cellcolor{cGreen}(TC001) traffic congestion& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC002) obstacle avoidance scenario& \cellcolor{cGray}(FI003) no emergency maneuvers w/o lane change / shoulder\\\hline
+\cellcolor{cGreen}(TC002) obstacle avoidance scenario& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cViolet}(TC003) blocking obstacle shortly beyond prediction horizon N& \cellcolor{cBlue}(FI004) prediction horizon too short to stop fully\\\hline
+\cellcolor{cYellow}(TC004a) end of two merging lanes& \cellcolor{cBlue}(FI005a) cannot ensure sufficient progress\\\hline
+\cellcolor{cYellow}(TC004a) end of two merging lanes& \cellcolor{cBlue}(FI005b) cannot avoid deadlocks\\\hline
+\cellcolor{cYellow}(TC004a) end of two merging lanes& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC004b) special situations during general lane changes& \cellcolor{cBlue}(FI005a) cannot ensure sufficient progress\\\hline
+\cellcolor{cYellow}(TC004b) special situations during general lane changes& \cellcolor{cBlue}(FI005b) cannot avoid deadlocks\\\hline
+\cellcolor{cYellow}(TC004b) special situations during general lane changes& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC005) leading target vehicle driving in reverse& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cRed}(TC007a) water (hydroplaning)& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC007b) snow/ice& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC007c) oil spillage& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC007a) water (hydroplaning)& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC007b) snow/ice& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC007c) oil spillage& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC008a) gravel or stones& \cellcolor{cBlue}(FI007b) due to irregular road surface\\\hline
+\cellcolor{cRed}(TC008b) potholes& \cellcolor{cBlue}(FI007b) due to irregular road surface\\\hline
+\cellcolor{cRed}(TC008c) road bumps& \cellcolor{cBlue}(FI007b) due to irregular road surface\\\hline
+\cellcolor{cRed}(TC009a) bridge deck& \cellcolor{cBlue}(FI008) receding-horizon + tracking may oscillate/unstable\\\hline
+\cellcolor{cYellow}(TC010a) lane markings suddenly disappearing& \cellcolor{cBlue}(FI008) receding-horizon + tracking may oscillate/unstable\\\hline
+\cellcolor{cYellow}(TC010b) dirty lane markings& \cellcolor{cBlue}(FI008) receding-horizon + tracking may oscillate/unstable\\\hline
+\cellcolor{cYellow}(TC010c) broken lane markings& \cellcolor{cBlue}(FI008) receding-horizon + tracking may oscillate/unstable\\\hline
+\cellcolor{cYellow}(TC010d) covered lane markings& \cellcolor{cBlue}(FI008) receding-horizon + tracking may oscillate/unstable\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI005a) cannot ensure sufficient progress\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI005b) cannot avoid deadlocks\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC011) other traffic participants not adhering to rules& \cellcolor{cBlue}(FI005a) cannot ensure sufficient progress\\\hline
+\cellcolor{cGreen}(TC011) other traffic participants not adhering to rules& \cellcolor{cBlue}(FI005b) cannot avoid deadlocks\\\hline
+\cellcolor{cGreen}(TC011) other traffic participants not adhering to rules& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC012) cut-in of faster target vehicle in front of EgoV& \cellcolor{cBlue}(FI005c) overly conservative braking in cut-in scenarios\\\hline
+\cellcolor{cGreen}(TC012) cut-in of faster target vehicle in front of EgoV& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC013) trailing vehicle driving closely behind EgoV& \cellcolor{cGray}(FI009) ignores trailing traffic; sudden braking may cause collision\\\hline
+\cellcolor{cGreen}(TC014a) previously shadowed traffic participant& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC014b) object dropping from bridge/truck& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC014c) large animal crossing freeway& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC014a) previously shadowed traffic participant& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC014b) object dropping from bridge/truck& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC014c) large animal crossing freeway& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC015a) start of speed limit area& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC015b) start of no passing zone& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC015a) start of speed limit area& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC015b) start of no passing zone& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cViolet}(TC016a) asymmetric load& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cViolet}(TC016b) dynamic cornering& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cViolet}(TC016c) high position of CoG& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cGreen}(TC017) chain of vehicles, middle vehicle, first brakes suddenly& \cellcolor{cBlue}(FI012) lack of string stability; chain collisions possible\\\hline
+\cellcolor{cGreen}(TC018) fast approach of slow target vehicle; no lateral avoidance& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC018) fast approach of slow target vehicle; no lateral avoidance& \cellcolor{cBlue}(FI013) lack of recursive feasibility\\\hline
+\cellcolor{cGreen}(TC019) rapidly changing traffic situations& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC020) max wind speed × max bank angle& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC021) min friction × min tire cornering stiffness& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC022a) max front stiffness × min rear stiffness& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC022b) min front stiffness × max rear stiffness& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC020) max wind speed × max bank angle& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cRed}(TC021) min friction × min tire cornering stiffness& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cRed}(TC022a) max front stiffness × min rear stiffness& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cRed}(TC022b) min front stiffness × max rear stiffness& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cYellow}(TC010a) lane markings suddenly disappearing& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cYellow}(TC010b) dirty lane markings& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cYellow}(TC010c) broken lane markings& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cYellow}(TC010d) covered lane markings& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC023a) direct sunlight& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC023b) lighting change (e.g., tunnel)& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC024a) snow/ice& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC024b) fog& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cViolet}(TC025a) curbs& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cViolet}(TC025b) dividers& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC008b) potholes& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC008c) road bumps& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC026a) wet road with foliage& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC026b) snowy/icy road& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cYellow}(TC027) entering freeway from on-ramp& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC028) exiting freeway via off-ramp& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC029) lane adding situations& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC027) entering freeway from on-ramp& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC028) exiting freeway via off-ramp& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC029) lane adding situations& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC027) entering freeway from on-ramp& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC028) exiting freeway via off-ramp& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC029) lane adding situations& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC030) approaching emergency vehicle& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC031) heavy transport / oversized vehicles& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC032) vehicle parking on freeway shoulder& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC033) reckless driver / under the influence& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC030) approaching emergency vehicle& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC031) heavy transport / oversized vehicles& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC032) vehicle parking on freeway shoulder& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC033) reckless driver / under the influence& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC030) approaching emergency vehicle& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC031) heavy transport / oversized vehicles& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC032) vehicle parking on freeway shoulder& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC033) reckless driver / under the influence& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC008d) ruts& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cRed}(TC008d) ruts& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC008d) ruts& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC034) freeway shoulder not available& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC035) shoulder used as additional lane& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC036) end of freeway& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC037) freeway closure& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cViolet}(TC038) steep road slope& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cViolet}(TC039) high road curvature& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cViolet}(TC038) steep road slope& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cViolet}(TC039) high road curvature& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cRed}(TC009) side wind gusts& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cRed}(TC009) side wind gusts& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC009) side wind gusts& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\end{longtable}
+
+
+
+
+\newpage
+\section{Original Graph}
+
+
+
+
+
+\setlength{\tabcolsep}{0.1pt}
+\renewcommand{\baselinestretch}{0.9}
+\renewcommand{\arraystretch}{1.4}
+\begin{pspicture}(0,0)(150,260)
+\tiny
+\rput[tl](0,260.00){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}traffic congestion & (TC001)\Rnode{TC001}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,256.29){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}obstacle avoidance scenario & (TC002)\Rnode{TC002}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,252.57){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}blocking obstacle shortly beyond pred\linebreak iction horizon N & (TC003)\Rnode{TC003}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,246.86){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}right-of-way is unclear & (TC004)\Rnode{TC004}{\hspace*{0.01mm}}\\
+end of two merging lanes & (TC004a)\Rnode{TC004a}{\hspace*{0.01mm}}\\
+special situations during general lan\linebreak e changes & (TC004b)\Rnode{TC004b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,236.15){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}leading target vehicle driving in rev\linebreak erse & (TC005)\Rnode{TC005}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,230.44){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}wrong way driver & (TC006)\Rnode{TC006}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,226.72){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}sudden drop of friction coefficient & (TC007)\Rnode{TC007}{\hspace*{0.01mm}}\\
+water (hydroplaning) & (TC007a)\Rnode{TC007a}{\hspace*{0.01mm}}\\
+snow/ice & (TC007b)\Rnode{TC007b}{\hspace*{0.01mm}}\\
+oil spillage & (TC007c)\Rnode{TC007c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,215.51){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}irregular road surface & (TC008)\Rnode{TC008}{\hspace*{0.01mm}}\\
+gravel or stones & (TC008a)\Rnode{TC008a}{\hspace*{0.01mm}}\\
+potholes & (TC008b)\Rnode{TC008b}{\hspace*{0.01mm}}\\
+road bumps & (TC008c)\Rnode{TC008c}{\hspace*{0.01mm}}\\
+ruts & (TC008d)\Rnode{TC008d}{\hspace*{0.01mm}}\\
+blow-ups & (TC008e)\Rnode{TC008e}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,199.30){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}side wind gusts & (TC009)\Rnode{TC009}{\hspace*{0.01mm}}\\
+bridge deck & (TC009a)\Rnode{TC009a}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,193.08){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}irregular lane markings & (TC010)\Rnode{TC010}{\hspace*{0.01mm}}\\
+lane markings suddenly disappearing & (TC010a)\Rnode{TC010a}{\hspace*{0.01mm}}\\
+dirty lane markings & (TC010b)\Rnode{TC010b}{\hspace*{0.01mm}}\\
+broken lane markings & (TC010c)\Rnode{TC010c}{\hspace*{0.01mm}}\\
+covered lane markings & (TC010d)\Rnode{TC010d}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,179.37){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}other traffic participants not adheri\linebreak ng to rules & (TC011)\Rnode{TC011}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,173.66){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}cut-in of faster target vehicle in fr\linebreak ont of EgoV & (TC012)\Rnode{TC012}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,167.95){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}trailing vehicle driving closely behi\linebreak nd EgoV & (TC013)\Rnode{TC013}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,162.23){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}suddenly appearing obstacle & (TC014)\Rnode{TC014}{\hspace*{0.01mm}}\\
+previously shadowed traffic participa\linebreak nt & (TC014a)\Rnode{TC014a}{\hspace*{0.01mm}}\\
+object dropping from bridge/truck & (TC014b)\Rnode{TC014b}{\hspace*{0.01mm}}\\
+large animal crossing freeway & (TC014c)\Rnode{TC014c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,149.02){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}sudden traffic rule change & (TC015)\Rnode{TC015}{\hspace*{0.01mm}}\\
+start of speed limit area & (TC015a)\Rnode{TC015a}{\hspace*{0.01mm}}\\
+start of no passing zone & (TC015b)\Rnode{TC015b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,140.31){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}LDBM assumption violation & (TC016)\Rnode{TC016}{\hspace*{0.01mm}}\\
+asymmetric load & (TC016a)\Rnode{TC016a}{\hspace*{0.01mm}}\\
+dynamic cornering & (TC016b)\Rnode{TC016b}{\hspace*{0.01mm}}\\
+high position of CoG & (TC016c)\Rnode{TC016c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,129.09){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}chain of vehicles, middle vehicle, fi\linebreak rst brakes suddenly & (TC017)\Rnode{TC017}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,123.38){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}fast approach of slow target vehicle;\linebreak  no lateral avoidance & (TC018)\Rnode{TC018}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,117.67){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}rapidly changing traffic situations & (TC019)\Rnode{TC019}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,113.96){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}max wind speed × max bank angle & (TC020)\Rnode{TC020}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,110.24){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}min friction × min tire cornering sti\linebreak ffness & (TC021)\Rnode{TC021}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,104.53){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}[to be determined] & (TC022)\Rnode{TC022}{\hspace*{0.01mm}}\\
+max front stiffness × min rear stiffn\linebreak ess & (TC022a)\Rnode{TC022a}{\hspace*{0.01mm}}\\
+min front stiffness × max rear stiffn\linebreak ess & (TC022b)\Rnode{TC022b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,91.82){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}unrecognizable lane markings & (TC023)\Rnode{TC023}{\hspace*{0.01mm}}\\
+direct sunlight & (TC023a)\Rnode{TC023a}{\hspace*{0.01mm}}\\
+lighting change (e.g., tunnel) & (TC023b)\Rnode{TC023b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,83.11){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}insufficient visibility of lane marki\linebreak ngs & (TC024)\Rnode{TC024}{\hspace*{0.01mm}}\\
+snow/ice & (TC024a)\Rnode{TC024a}{\hspace*{0.01mm}}\\
+fog & (TC024b)\Rnode{TC024b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,72.39){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}infrastructure misinterpreted as lane\linebreak  markings & (TC025)\Rnode{TC025}{\hspace*{0.01mm}}\\
+curbs & (TC025a)\Rnode{TC025a}{\hspace*{0.01mm}}\\
+dividers & (TC025b)\Rnode{TC025b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,61.68){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}slippery road surface & (TC026)\Rnode{TC026}{\hspace*{0.01mm}}\\
+wet road with foliage & (TC026a)\Rnode{TC026a}{\hspace*{0.01mm}}\\
+snowy/icy road & (TC026b)\Rnode{TC026b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,52.97){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}entering freeway from on-ramp & (TC027)\Rnode{TC027}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,49.25){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}exiting freeway via off-ramp & (TC028)\Rnode{TC028}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,45.54){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}lane adding situations & (TC029)\Rnode{TC029}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,41.83){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}approaching emergency vehicle & (TC030)\Rnode{TC030}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,38.12){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}heavy transport / oversized vehicles & (TC031)\Rnode{TC031}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,34.40){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}vehicle parking on freeway shoulder & (TC032)\Rnode{TC032}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,30.69){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}reckless driver / under the influence & (TC033)\Rnode{TC033}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,26.98){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}freeway shoulder not available & (TC034)\Rnode{TC034}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,23.26){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}shoulder used as additional lane & (TC035)\Rnode{TC035}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,19.55){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}end of freeway & (TC036)\Rnode{TC036}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,15.84){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}freeway closure & (TC037)\Rnode{TC037}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,12.13){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}steep road slope & (TC038)\Rnode{TC038}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,8.41){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}high road curvature & (TC039)\Rnode{TC039}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,4.70){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}unknown traffic scenarios/signs in ot\linebreak her EU countries & (TC040)\Rnode{TC040}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](100,260.00){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI001}{\hspace*{0.01mm}}(FI001) & no capability to form a rescue alley\end{tabular}}}
+\rput[tl](100,243.02){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI002}{\hspace*{0.01mm}}(FI002) & unusual/illegal/counter-intuitive/dan\linebreak gerous trajectories\end{tabular}}}
+\rput[tl](100,224.03){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI003}{\hspace*{0.01mm}}(FI003) & no emergency maneuvers w/o lane chang\linebreak e / shoulder\end{tabular}}}
+\rput[tl](100,205.05){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI004}{\hspace*{0.01mm}}(FI004) & prediction horizon too short to stop \linebreak fully\end{tabular}}}
+\rput[tl](100,186.06){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI005}{\hspace*{0.01mm}}(FI005) & overly conservative behavior of MPC-T\linebreak P\\
+\Rnode{FI005a}{\hspace*{0.01mm}}(FI005a) & cannot ensure sufficient progress\\
+\Rnode{FI005b}{\hspace*{0.01mm}}(FI005b) & cannot avoid deadlocks\\
+\Rnode{FI005c}{\hspace*{0.01mm}}(FI005c) & overly conservative braking in cut-in\linebreak  scenarios\end{tabular}}}
+\rput[tl](100,157.58){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI006}{\hspace*{0.01mm}}(FI006) & cannot generate feasible collision-fr\linebreak ee trajectory\end{tabular}}}
+\rput[tl](100,138.59){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI007}{\hspace*{0.01mm}}(FI007) & cannot generate drivable trajectory\\
+\Rnode{FI007a}{\hspace*{0.01mm}}(FI007a) & due to linear tire model in LDBM\\
+\Rnode{FI007b}{\hspace*{0.01mm}}(FI007b) & due to irregular road surface\end{tabular}}}
+\rput[tl](100,116.61){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI008}{\hspace*{0.01mm}}(FI008) & receding-horizon + tracking may oscil\linebreak late/unstable\end{tabular}}}
+\rput[tl](100,97.62){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI009}{\hspace*{0.01mm}}(FI009) & ignores trailing traffic; sudden brak\linebreak ing may cause collision\end{tabular}}}
+\rput[tl](100,78.64){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI010}{\hspace*{0.01mm}}(FI010) & insufficient time to solve FHOCP for \linebreak new trajectory\end{tabular}}}
+\rput[tl](100,59.65){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI011}{\hspace*{0.01mm}}(FI011) & poor approximation of real vehicle be\linebreak havior by LDBM in OCP\end{tabular}}}
+\rput[tl](100,40.67){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI012}{\hspace*{0.01mm}}(FI012) & lack of string stability; chain colli\linebreak sions possible\end{tabular}}}
+\rput[tl](100,21.68){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI013}{\hspace*{0.01mm}}(FI013) & lack of recursive feasibility\end{tabular}}}
+\rput[tl](100,4.70){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI014}{\hspace*{0.01mm}}(FI014) & cannot generate a solution in some si\linebreak tuations at all\end{tabular}}}
+\ncline[nodesep=1pt]{*-*}{TC001}{FI001}
+\ncline[nodesep=1pt]{*-*}{TC001}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC002}{FI003}
+\ncline[nodesep=1pt]{*-*}{TC002}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC003}{FI004}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC005}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC007}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC007}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC008a}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC008b}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC008c}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI008}
+\ncline[nodesep=1pt]{*-*}{TC010}{FI008}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC012}{FI005c}
+\ncline[nodesep=1pt]{*-*}{TC012}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC013}{FI009}
+\ncline[nodesep=1pt]{*-*}{TC014}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC014}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC015}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC015}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC016}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC017}{FI012}
+\ncline[nodesep=1pt]{*-*}{TC018}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC018}{FI013}
+\ncline[nodesep=1pt]{*-*}{TC019}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC020}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC021}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC022}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC020}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC021}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC022}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC026}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC034}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC035}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC036}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC037}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC038}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC039}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC038}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC039}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI010}
+\end{pspicture}
+
+
+\newpage
+\section{Numerically Ordered Graph}
+
+
+
+
+\setlength{\tabcolsep}{0.1pt}
+\renewcommand{\baselinestretch}{0.9}
+\renewcommand{\arraystretch}{1.4}
+\begin{pspicture}(0,0)(150,260)
+\tiny
+\rput[tl](0,260.00){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}traffic congestion & (TC001)\Rnode{TC001}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,256.29){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}obstacle avoidance scenario & (TC002)\Rnode{TC002}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,252.57){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}blocking obstacle shortly beyond pred\linebreak iction horizon N & (TC003)\Rnode{TC003}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,246.86){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}right-of-way is unclear & (TC004)\Rnode{TC004}{\hspace*{0.01mm}}\\
+end of two merging lanes & (TC004a)\Rnode{TC004a}{\hspace*{0.01mm}}\\
+special situations during general lan\linebreak e changes & (TC004b)\Rnode{TC004b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,236.15){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}leading target vehicle driving in rev\linebreak erse & (TC005)\Rnode{TC005}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,230.44){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}wrong way driver & (TC006)\Rnode{TC006}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,226.72){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}sudden drop of friction coefficient & (TC007)\Rnode{TC007}{\hspace*{0.01mm}}\\
+water (hydroplaning) & (TC007a)\Rnode{TC007a}{\hspace*{0.01mm}}\\
+snow/ice & (TC007b)\Rnode{TC007b}{\hspace*{0.01mm}}\\
+oil spillage & (TC007c)\Rnode{TC007c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,215.51){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}irregular road surface & (TC008)\Rnode{TC008}{\hspace*{0.01mm}}\\
+gravel or stones & (TC008a)\Rnode{TC008a}{\hspace*{0.01mm}}\\
+potholes & (TC008b)\Rnode{TC008b}{\hspace*{0.01mm}}\\
+road bumps & (TC008c)\Rnode{TC008c}{\hspace*{0.01mm}}\\
+ruts & (TC008d)\Rnode{TC008d}{\hspace*{0.01mm}}\\
+blow-ups & (TC008e)\Rnode{TC008e}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,199.30){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}side wind gusts & (TC009)\Rnode{TC009}{\hspace*{0.01mm}}\\
+bridge deck & (TC009a)\Rnode{TC009a}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,193.08){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}irregular lane markings & (TC010)\Rnode{TC010}{\hspace*{0.01mm}}\\
+lane markings suddenly disappearing & (TC010a)\Rnode{TC010a}{\hspace*{0.01mm}}\\
+dirty lane markings & (TC010b)\Rnode{TC010b}{\hspace*{0.01mm}}\\
+broken lane markings & (TC010c)\Rnode{TC010c}{\hspace*{0.01mm}}\\
+covered lane markings & (TC010d)\Rnode{TC010d}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,179.37){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}other traffic participants not adheri\linebreak ng to rules & (TC011)\Rnode{TC011}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,173.66){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}cut-in of faster target vehicle in fr\linebreak ont of EgoV & (TC012)\Rnode{TC012}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,167.95){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}trailing vehicle driving closely behi\linebreak nd EgoV & (TC013)\Rnode{TC013}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,162.23){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}suddenly appearing obstacle & (TC014)\Rnode{TC014}{\hspace*{0.01mm}}\\
+previously shadowed traffic participa\linebreak nt & (TC014a)\Rnode{TC014a}{\hspace*{0.01mm}}\\
+object dropping from bridge/truck & (TC014b)\Rnode{TC014b}{\hspace*{0.01mm}}\\
+large animal crossing freeway & (TC014c)\Rnode{TC014c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,149.02){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}sudden traffic rule change & (TC015)\Rnode{TC015}{\hspace*{0.01mm}}\\
+start of speed limit area & (TC015a)\Rnode{TC015a}{\hspace*{0.01mm}}\\
+start of no passing zone & (TC015b)\Rnode{TC015b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,140.31){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}LDBM assumption violation & (TC016)\Rnode{TC016}{\hspace*{0.01mm}}\\
+asymmetric load & (TC016a)\Rnode{TC016a}{\hspace*{0.01mm}}\\
+dynamic cornering & (TC016b)\Rnode{TC016b}{\hspace*{0.01mm}}\\
+high position of CoG & (TC016c)\Rnode{TC016c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,129.09){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}chain of vehicles, middle vehicle, fi\linebreak rst brakes suddenly & (TC017)\Rnode{TC017}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,123.38){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}fast approach of slow target vehicle;\linebreak  no lateral avoidance & (TC018)\Rnode{TC018}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,117.67){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}rapidly changing traffic situations & (TC019)\Rnode{TC019}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,113.96){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}max wind speed × max bank angle & (TC020)\Rnode{TC020}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,110.24){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}min friction × min tire cornering sti\linebreak ffness & (TC021)\Rnode{TC021}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,104.53){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}[to be determined] & (TC022)\Rnode{TC022}{\hspace*{0.01mm}}\\
+max front stiffness × min rear stiffn\linebreak ess & (TC022a)\Rnode{TC022a}{\hspace*{0.01mm}}\\
+min front stiffness × max rear stiffn\linebreak ess & (TC022b)\Rnode{TC022b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,91.82){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}unrecognizable lane markings & (TC023)\Rnode{TC023}{\hspace*{0.01mm}}\\
+direct sunlight & (TC023a)\Rnode{TC023a}{\hspace*{0.01mm}}\\
+lighting change (e.g., tunnel) & (TC023b)\Rnode{TC023b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,83.11){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}insufficient visibility of lane marki\linebreak ngs & (TC024)\Rnode{TC024}{\hspace*{0.01mm}}\\
+snow/ice & (TC024a)\Rnode{TC024a}{\hspace*{0.01mm}}\\
+fog & (TC024b)\Rnode{TC024b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,72.39){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}infrastructure misinterpreted as lane\linebreak  markings & (TC025)\Rnode{TC025}{\hspace*{0.01mm}}\\
+curbs & (TC025a)\Rnode{TC025a}{\hspace*{0.01mm}}\\
+dividers & (TC025b)\Rnode{TC025b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,61.68){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}slippery road surface & (TC026)\Rnode{TC026}{\hspace*{0.01mm}}\\
+wet road with foliage & (TC026a)\Rnode{TC026a}{\hspace*{0.01mm}}\\
+snowy/icy road & (TC026b)\Rnode{TC026b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,52.97){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}entering freeway from on-ramp & (TC027)\Rnode{TC027}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,49.25){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}exiting freeway via off-ramp & (TC028)\Rnode{TC028}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,45.54){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}lane adding situations & (TC029)\Rnode{TC029}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,41.83){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}approaching emergency vehicle & (TC030)\Rnode{TC030}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,38.12){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}heavy transport / oversized vehicles & (TC031)\Rnode{TC031}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,34.40){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}vehicle parking on freeway shoulder & (TC032)\Rnode{TC032}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,30.69){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}reckless driver / under the influence & (TC033)\Rnode{TC033}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,26.98){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}freeway shoulder not available & (TC034)\Rnode{TC034}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,23.26){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}shoulder used as additional lane & (TC035)\Rnode{TC035}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,19.55){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}end of freeway & (TC036)\Rnode{TC036}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,15.84){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}freeway closure & (TC037)\Rnode{TC037}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,12.13){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}steep road slope & (TC038)\Rnode{TC038}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,8.41){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}high road curvature & (TC039)\Rnode{TC039}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,4.70){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}unknown traffic scenarios/signs in ot\linebreak her EU countries & (TC040)\Rnode{TC040}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](100,260.00){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI001}{\hspace*{0.01mm}}(FI001) & no capability to form a rescue alley\end{tabular}}}
+\rput[tl](100,243.02){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI002}{\hspace*{0.01mm}}(FI002) & unusual/illegal/counter-intuitive/dan\linebreak gerous trajectories\end{tabular}}}
+\rput[tl](100,224.03){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI003}{\hspace*{0.01mm}}(FI003) & no emergency maneuvers w/o lane chang\linebreak e / shoulder\end{tabular}}}
+\rput[tl](100,205.05){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI004}{\hspace*{0.01mm}}(FI004) & prediction horizon too short to stop \linebreak fully\end{tabular}}}
+\rput[tl](100,186.06){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI005}{\hspace*{0.01mm}}(FI005) & overly conservative behavior of MPC-T\linebreak P\\
+\Rnode{FI005a}{\hspace*{0.01mm}}(FI005a) & cannot ensure sufficient progress\\
+\Rnode{FI005b}{\hspace*{0.01mm}}(FI005b) & cannot avoid deadlocks\\
+\Rnode{FI005c}{\hspace*{0.01mm}}(FI005c) & overly conservative braking in cut-in\linebreak  scenarios\end{tabular}}}
+\rput[tl](100,157.58){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI006}{\hspace*{0.01mm}}(FI006) & cannot generate feasible collision-fr\linebreak ee trajectory\end{tabular}}}
+\rput[tl](100,138.59){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI007}{\hspace*{0.01mm}}(FI007) & cannot generate drivable trajectory\\
+\Rnode{FI007a}{\hspace*{0.01mm}}(FI007a) & due to linear tire model in LDBM\\
+\Rnode{FI007b}{\hspace*{0.01mm}}(FI007b) & due to irregular road surface\end{tabular}}}
+\rput[tl](100,116.61){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI008}{\hspace*{0.01mm}}(FI008) & receding-horizon + tracking may oscil\linebreak late/unstable\end{tabular}}}
+\rput[tl](100,97.62){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI009}{\hspace*{0.01mm}}(FI009) & ignores trailing traffic; sudden brak\linebreak ing may cause collision\end{tabular}}}
+\rput[tl](100,78.64){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI010}{\hspace*{0.01mm}}(FI010) & insufficient time to solve FHOCP for \linebreak new trajectory\end{tabular}}}
+\rput[tl](100,59.65){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI011}{\hspace*{0.01mm}}(FI011) & poor approximation of real vehicle be\linebreak havior by LDBM in OCP\end{tabular}}}
+\rput[tl](100,40.67){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI012}{\hspace*{0.01mm}}(FI012) & lack of string stability; chain colli\linebreak sions possible\end{tabular}}}
+\rput[tl](100,21.68){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI013}{\hspace*{0.01mm}}(FI013) & lack of recursive feasibility\end{tabular}}}
+\rput[tl](100,4.70){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI014}{\hspace*{0.01mm}}(FI014) & cannot generate a solution in some si\linebreak tuations at all\end{tabular}}}
+\ncline[nodesep=1pt]{*-*}{TC001}{FI001}
+\ncline[nodesep=1pt]{*-*}{TC001}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC002}{FI003}
+\ncline[nodesep=1pt]{*-*}{TC002}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC003}{FI004}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC005}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC007}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC007}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC008a}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC008b}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC008c}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI008}
+\ncline[nodesep=1pt]{*-*}{TC010}{FI008}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC012}{FI005c}
+\ncline[nodesep=1pt]{*-*}{TC012}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC013}{FI009}
+\ncline[nodesep=1pt]{*-*}{TC014}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC014}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC015}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC015}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC016}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC017}{FI012}
+\ncline[nodesep=1pt]{*-*}{TC018}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC018}{FI013}
+\ncline[nodesep=1pt]{*-*}{TC019}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC020}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC021}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC022}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC020}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC021}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC022}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC026}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC034}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC035}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC036}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC037}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC038}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC039}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC038}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC039}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI010}
+\end{pspicture}
+
+
+
+
+\newpage
+\section{Optimized Graph}
+
+
+
+\setlength{\tabcolsep}{0.1pt}
+\renewcommand{\baselinestretch}{0.9}
+\renewcommand{\arraystretch}{1.4}
+\begin{pspicture}(0,0)(150,260)
+\tiny
+\rput[tl](0,260.00){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}blocking obstacle shortly beyond pred\linebreak iction horizon N & (TC003)\Rnode{TC003}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,254.29){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}trailing vehicle driving closely behi\linebreak nd EgoV & (TC013)\Rnode{TC013}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,248.57){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}chain of vehicles, middle vehicle, fi\linebreak rst brakes suddenly & (TC017)\Rnode{TC017}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,242.86){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}traffic congestion & (TC001)\Rnode{TC001}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,239.15){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}obstacle avoidance scenario & (TC002)\Rnode{TC002}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,235.44){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}right-of-way is unclear & (TC004)\Rnode{TC004}{\hspace*{0.01mm}}\\
+end of two merging lanes & (TC004a)\Rnode{TC004a}{\hspace*{0.01mm}}\\
+special situations during general lan\linebreak e changes & (TC004b)\Rnode{TC004b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,224.72){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}other traffic participants not adheri\linebreak ng to rules & (TC011)\Rnode{TC011}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,219.01){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}irregular lane markings & (TC010)\Rnode{TC010}{\hspace*{0.01mm}}\\
+lane markings suddenly disappearing & (TC010a)\Rnode{TC010a}{\hspace*{0.01mm}}\\
+dirty lane markings & (TC010b)\Rnode{TC010b}{\hspace*{0.01mm}}\\
+broken lane markings & (TC010c)\Rnode{TC010c}{\hspace*{0.01mm}}\\
+covered lane markings & (TC010d)\Rnode{TC010d}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,205.30){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}cut-in of faster target vehicle in fr\linebreak ont of EgoV & (TC012)\Rnode{TC012}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,199.58){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}fast approach of slow target vehicle;\linebreak  no lateral avoidance & (TC018)\Rnode{TC018}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,193.87){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}freeway shoulder not available & (TC034)\Rnode{TC034}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,190.16){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}shoulder used as additional lane & (TC035)\Rnode{TC035}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,186.45){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}end of freeway & (TC036)\Rnode{TC036}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,182.73){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}freeway closure & (TC037)\Rnode{TC037}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,179.02){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}side wind gusts & (TC009)\Rnode{TC009}{\hspace*{0.01mm}}\\
+bridge deck & (TC009a)\Rnode{TC009a}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,172.81){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}suddenly appearing obstacle & (TC014)\Rnode{TC014}{\hspace*{0.01mm}}\\
+previously shadowed traffic participa\linebreak nt & (TC014a)\Rnode{TC014a}{\hspace*{0.01mm}}\\
+object dropping from bridge/truck & (TC014b)\Rnode{TC014b}{\hspace*{0.01mm}}\\
+large animal crossing freeway & (TC014c)\Rnode{TC014c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,159.59){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}leading target vehicle driving in rev\linebreak erse & (TC005)\Rnode{TC005}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,153.88){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}wrong way driver & (TC006)\Rnode{TC006}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,150.17){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}entering freeway from on-ramp & (TC027)\Rnode{TC027}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,146.46){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}exiting freeway via off-ramp & (TC028)\Rnode{TC028}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,142.74){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}lane adding situations & (TC029)\Rnode{TC029}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,139.03){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}approaching emergency vehicle & (TC030)\Rnode{TC030}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,135.32){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}heavy transport / oversized vehicles & (TC031)\Rnode{TC031}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,131.61){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}vehicle parking on freeway shoulder & (TC032)\Rnode{TC032}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,127.89){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}reckless driver / under the influence & (TC033)\Rnode{TC033}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,124.18){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}unknown traffic scenarios/signs in ot\linebreak her EU countries & (TC040)\Rnode{TC040}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,118.47){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}irregular road surface & (TC008)\Rnode{TC008}{\hspace*{0.01mm}}\\
+gravel or stones & (TC008a)\Rnode{TC008a}{\hspace*{0.01mm}}\\
+potholes & (TC008b)\Rnode{TC008b}{\hspace*{0.01mm}}\\
+road bumps & (TC008c)\Rnode{TC008c}{\hspace*{0.01mm}}\\
+ruts & (TC008d)\Rnode{TC008d}{\hspace*{0.01mm}}\\
+blow-ups & (TC008e)\Rnode{TC008e}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,102.25){\psframebox[fillstyle=solid,fillcolor=cYellow,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}sudden traffic rule change & (TC015)\Rnode{TC015}{\hspace*{0.01mm}}\\
+start of speed limit area & (TC015a)\Rnode{TC015a}{\hspace*{0.01mm}}\\
+start of no passing zone & (TC015b)\Rnode{TC015b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,93.54){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}sudden drop of friction coefficient & (TC007)\Rnode{TC007}{\hspace*{0.01mm}}\\
+water (hydroplaning) & (TC007a)\Rnode{TC007a}{\hspace*{0.01mm}}\\
+snow/ice & (TC007b)\Rnode{TC007b}{\hspace*{0.01mm}}\\
+oil spillage & (TC007c)\Rnode{TC007c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,82.33){\psframebox[fillstyle=solid,fillcolor=cGreen,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}rapidly changing traffic situations & (TC019)\Rnode{TC019}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,78.62){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}slippery road surface & (TC026)\Rnode{TC026}{\hspace*{0.01mm}}\\
+wet road with foliage & (TC026a)\Rnode{TC026a}{\hspace*{0.01mm}}\\
+snowy/icy road & (TC026b)\Rnode{TC026b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,69.90){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}max wind speed × max bank angle & (TC020)\Rnode{TC020}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,66.19){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}min friction × min tire cornering sti\linebreak ffness & (TC021)\Rnode{TC021}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,60.48){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}[to be determined] & (TC022)\Rnode{TC022}{\hspace*{0.01mm}}\\
+max front stiffness × min rear stiffn\linebreak ess & (TC022a)\Rnode{TC022a}{\hspace*{0.01mm}}\\
+min front stiffness × max rear stiffn\linebreak ess & (TC022b)\Rnode{TC022b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,47.76){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}steep road slope & (TC038)\Rnode{TC038}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,44.05){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}high road curvature & (TC039)\Rnode{TC039}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,40.34){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}LDBM assumption violation & (TC016)\Rnode{TC016}{\hspace*{0.01mm}}\\
+asymmetric load & (TC016a)\Rnode{TC016a}{\hspace*{0.01mm}}\\
+dynamic cornering & (TC016b)\Rnode{TC016b}{\hspace*{0.01mm}}\\
+high position of CoG & (TC016c)\Rnode{TC016c}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,29.13){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}unrecognizable lane markings & (TC023)\Rnode{TC023}{\hspace*{0.01mm}}\\
+direct sunlight & (TC023a)\Rnode{TC023a}{\hspace*{0.01mm}}\\
+lighting change (e.g., tunnel) & (TC023b)\Rnode{TC023b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,20.41){\psframebox[fillstyle=solid,fillcolor=cRed,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}insufficient visibility of lane marki\linebreak ngs & (TC024)\Rnode{TC024}{\hspace*{0.01mm}}\\
+snow/ice & (TC024a)\Rnode{TC024a}{\hspace*{0.01mm}}\\
+fog & (TC024b)\Rnode{TC024b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](0,9.70){\psframebox[fillstyle=solid,fillcolor=cViolet,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{R{4cm}R{1.1cm}}infrastructure misinterpreted as lane\linebreak  markings & (TC025)\Rnode{TC025}{\hspace*{0.01mm}}\\
+curbs & (TC025a)\Rnode{TC025a}{\hspace*{0.01mm}}\\
+dividers & (TC025b)\Rnode{TC025b}{\hspace*{0.01mm}}\end{tabular}}}
+\rput[tl](100,260.00){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI004}{\hspace*{0.01mm}}(FI004) & prediction horizon too short to stop \linebreak fully\end{tabular}}}
+\rput[tl](100,241.02){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI009}{\hspace*{0.01mm}}(FI009) & ignores trailing traffic; sudden brak\linebreak ing may cause collision\end{tabular}}}
+\rput[tl](100,222.03){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI012}{\hspace*{0.01mm}}(FI012) & lack of string stability; chain colli\linebreak sions possible\end{tabular}}}
+\rput[tl](100,203.05){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI001}{\hspace*{0.01mm}}(FI001) & no capability to form a rescue alley\end{tabular}}}
+\rput[tl](100,186.06){\psframebox[fillstyle=solid,fillcolor=cGray,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI003}{\hspace*{0.01mm}}(FI003) & no emergency maneuvers w/o lane chang\linebreak e / shoulder\end{tabular}}}
+\rput[tl](100,167.08){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI014}{\hspace*{0.01mm}}(FI014) & cannot generate a solution in some si\linebreak tuations at all\end{tabular}}}
+\rput[tl](100,148.09){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI005}{\hspace*{0.01mm}}(FI005) & overly conservative behavior of MPC-T\linebreak P\\
+\Rnode{FI005a}{\hspace*{0.01mm}}(FI005a) & cannot ensure sufficient progress\\
+\Rnode{FI005b}{\hspace*{0.01mm}}(FI005b) & cannot avoid deadlocks\\
+\Rnode{FI005c}{\hspace*{0.01mm}}(FI005c) & overly conservative braking in cut-in\linebreak  scenarios\end{tabular}}}
+\rput[tl](100,119.61){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI013}{\hspace*{0.01mm}}(FI013) & lack of recursive feasibility\end{tabular}}}
+\rput[tl](100,102.62){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI008}{\hspace*{0.01mm}}(FI008) & receding-horizon + tracking may oscil\linebreak late/unstable\end{tabular}}}
+\rput[tl](100,83.64){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI002}{\hspace*{0.01mm}}(FI002) & unusual/illegal/counter-intuitive/dan\linebreak gerous trajectories\end{tabular}}}
+\rput[tl](100,64.65){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI006}{\hspace*{0.01mm}}(FI006) & cannot generate feasible collision-fr\linebreak ee trajectory\end{tabular}}}
+\rput[tl](100,45.67){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI010}{\hspace*{0.01mm}}(FI010) & insufficient time to solve FHOCP for \linebreak new trajectory\end{tabular}}}
+\rput[tl](100,26.68){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI007}{\hspace*{0.01mm}}(FI007) & cannot generate drivable trajectory\\
+\Rnode{FI007a}{\hspace*{0.01mm}}(FI007a) & due to linear tire model in LDBM\\
+\Rnode{FI007b}{\hspace*{0.01mm}}(FI007b) & due to irregular road surface\end{tabular}}}
+\rput[tl](100,4.70){\psframebox[fillstyle=solid,fillcolor=cBlue,framesep=2pt,cornersize=absolute,linearc=2pt]{\begin{tabular}{L{1.1cm}L{4cm}} \Rnode{FI011}{\hspace*{0.01mm}}(FI011) & poor approximation of real vehicle be\linebreak havior by LDBM in OCP\end{tabular}}}
+\ncline[nodesep=1pt]{*-*}{TC001}{FI001}
+\ncline[nodesep=1pt]{*-*}{TC001}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC002}{FI003}
+\ncline[nodesep=1pt]{*-*}{TC002}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC003}{FI004}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC005}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC007}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC007}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC008a}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC008b}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC008c}{FI007b}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI008}
+\ncline[nodesep=1pt]{*-*}{TC010}{FI008}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC004}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI005a}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI005b}
+\ncline[nodesep=1pt]{*-*}{TC011}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC012}{FI005c}
+\ncline[nodesep=1pt]{*-*}{TC012}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC013}{FI009}
+\ncline[nodesep=1pt]{*-*}{TC014}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC014}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC015}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC015}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC016}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC017}{FI012}
+\ncline[nodesep=1pt]{*-*}{TC018}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC018}{FI013}
+\ncline[nodesep=1pt]{*-*}{TC019}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC020}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC021}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC022}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC020}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC021}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC022}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC026}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC027}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC028}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC029}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC006}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC030}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC031}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC032}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC033}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC008d}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC034}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC035}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC036}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC037}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC038}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC039}{FI007a}
+\ncline[nodesep=1pt]{*-*}{TC038}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC039}{FI011}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC009}{FI010}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI002}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI006}
+\ncline[nodesep=1pt]{*-*}{TC040}{FI010}
+\end{pspicture}
+
+
+
+\end{document}

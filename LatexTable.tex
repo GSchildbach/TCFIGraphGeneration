@@ -1,0 +1,108 @@
+\centering
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{|p{8cm}|p{8cm}|}
+\hline
+\textbf{TC} & \textbf{Triggered FI}\\
+\hline\hline
+\cellcolor{cGreen}(TC001) traffic congestion& \cellcolor{cGray}(FI001) no capability to form a rescue alley\\\hline
+\cellcolor{cGreen}(TC001) traffic congestion& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC002) obstacle avoidance scenario& \cellcolor{cGray}(FI003) no emergency maneuvers w/o lane change / shoulder\\\hline
+\cellcolor{cGreen}(TC002) obstacle avoidance scenario& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cViolet}(TC003) blocking obstacle shortly beyond prediction horizon N& \cellcolor{cBlue}(FI004) prediction horizon too short to stop fully\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI005a) cannot ensure sufficient progress\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI005b) cannot avoid deadlocks\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC005) leading target vehicle driving in reverse& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cRed}(TC007) sudden drop of friction coefficient& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC007) sudden drop of friction coefficient& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC008a) gravel or stones& \cellcolor{cBlue}(FI007b) due to irregular road surface\\\hline
+\cellcolor{cRed}(TC008b) potholes& \cellcolor{cBlue}(FI007b) due to irregular road surface\\\hline
+\cellcolor{cRed}(TC008c) road bumps& \cellcolor{cBlue}(FI007b) due to irregular road surface\\\hline
+\cellcolor{cRed}(TC009) side wind gusts& \cellcolor{cBlue}(FI008) receding-horizon + tracking may oscillate/unstable\\\hline
+\cellcolor{cYellow}(TC010) irregular lane markings& \cellcolor{cBlue}(FI008) receding-horizon + tracking may oscillate/unstable\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI005a) cannot ensure sufficient progress\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI005b) cannot avoid deadlocks\\\hline
+\cellcolor{cYellow}(TC004) right-of-way is unclear& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC011) other traffic participants not adhering to rules& \cellcolor{cBlue}(FI005a) cannot ensure sufficient progress\\\hline
+\cellcolor{cGreen}(TC011) other traffic participants not adhering to rules& \cellcolor{cBlue}(FI005b) cannot avoid deadlocks\\\hline
+\cellcolor{cGreen}(TC011) other traffic participants not adhering to rules& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC012) cut-in of faster target vehicle in front of EgoV& \cellcolor{cBlue}(FI005c) overly conservative braking in cut-in scenarios\\\hline
+\cellcolor{cGreen}(TC012) cut-in of faster target vehicle in front of EgoV& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC013) trailing vehicle driving closely behind EgoV& \cellcolor{cGray}(FI009) ignores trailing traffic; sudden braking may cause collision\\\hline
+\cellcolor{cGreen}(TC014) suddenly appearing obstacle& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC014) suddenly appearing obstacle& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC015) sudden traffic rule change& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC015) sudden traffic rule change& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cViolet}(TC016) LDBM assumption violation& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cGreen}(TC017) chain of vehicles, middle vehicle, first brakes suddenly& \cellcolor{cBlue}(FI012) lack of string stability; chain collisions possible\\\hline
+\cellcolor{cGreen}(TC018) fast approach of slow target vehicle; no lateral avoidance& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC018) fast approach of slow target vehicle; no lateral avoidance& \cellcolor{cBlue}(FI013) lack of recursive feasibility\\\hline
+\cellcolor{cGreen}(TC019) rapidly changing traffic situations& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC020) max wind speed × max bank angle& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC021) min friction × min tire cornering stiffness& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC022) [to be determined]& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cRed}(TC020) max wind speed × max bank angle& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cRed}(TC021) min friction × min tire cornering stiffness& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cRed}(TC022) [to be determined]& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cYellow}(TC010a) lane markings suddenly disappearing& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cYellow}(TC010b) dirty lane markings& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cYellow}(TC010c) broken lane markings& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cYellow}(TC010d) covered lane markings& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC023a) direct sunlight& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC023b) lighting change (e.g., tunnel)& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC024a) snow/ice& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC024b) fog& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cViolet}(TC025a) curbs& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cViolet}(TC025b) dividers& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC008b) potholes& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC008c) road bumps& \cellcolor{cBlue}(FI014) cannot generate a solution in some situations at all\\\hline
+\cellcolor{cRed}(TC026) slippery road surface& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cYellow}(TC027) entering freeway from on-ramp& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC028) exiting freeway via off-ramp& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC029) lane adding situations& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC027) entering freeway from on-ramp& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC028) exiting freeway via off-ramp& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC029) lane adding situations& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC027) entering freeway from on-ramp& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC028) exiting freeway via off-ramp& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC029) lane adding situations& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC030) approaching emergency vehicle& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC031) heavy transport / oversized vehicles& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC032) vehicle parking on freeway shoulder& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC033) reckless driver / under the influence& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC030) approaching emergency vehicle& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC031) heavy transport / oversized vehicles& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC032) vehicle parking on freeway shoulder& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC033) reckless driver / under the influence& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cGreen}(TC006) wrong way driver& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC030) approaching emergency vehicle& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC031) heavy transport / oversized vehicles& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC032) vehicle parking on freeway shoulder& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cGreen}(TC033) reckless driver / under the influence& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC008d) ruts& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cRed}(TC008d) ruts& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC008d) ruts& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC034) freeway shoulder not available& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC035) shoulder used as additional lane& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC036) end of freeway& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC037) freeway closure& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cViolet}(TC038) steep road slope& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cViolet}(TC039) high road curvature& \cellcolor{cBlue}(FI007a) due to linear tire model in LDBM\\\hline
+\cellcolor{cViolet}(TC038) steep road slope& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cViolet}(TC039) high road curvature& \cellcolor{cBlue}(FI011) poor approximation of real vehicle behavior by LDBM in OCP\\\hline
+\cellcolor{cRed}(TC009) side wind gusts& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cRed}(TC009) side wind gusts& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cRed}(TC009) side wind gusts& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI002) unusual/illegal/counter-intuitive/dangerous trajectories\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI006) cannot generate feasible collision-free trajectory\\\hline
+\cellcolor{cYellow}(TC040) unknown traffic scenarios/signs in other EU countries& \cellcolor{cBlue}(FI010) insufficient time to solve FHOCP for new trajectory\\\hline
+\end{longtable}

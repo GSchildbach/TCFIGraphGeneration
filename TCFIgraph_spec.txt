@@ -1,0 +1,212 @@
+Triggering Conditions:
+
+*TC classification*
+TCclass0: no classification available
+TCclass1: environmental conditions and road surface
+TCclass2: traffic rules, traffic signs, lane markings
+TCclass3: dynamic objects and obstacles
+TCClass4: EgoV maneuver, restricted visibility, sensor limitations
+
+#TC001 [label="traffic congestion",TCclass3];
+#TC002 [label="obstacle avoidance scenario",TCclass3];
+#TC003 [label="blocking obstacle shortly beyond prediction horizon N",TCclass4];
+#TC004 [label="right-of-way is unclear",TCclass2];
+#TC004a [label="end of two merging lanes",TCclass2];
+#TC004b [label="special situations during general lane changes",TCclass2];
+#TC005 [label="leading target vehicle driving in reverse",TCclass3];
+#TC006 [label="wrong way driver",TCclass3];
+#TC007 [label="sudden drop of friction coefficient",TCclass1];
+#TC007a [label="water (hydroplaning)",TCclass1];
+#TC007b [label="snow/ice",TCclass1];
+#TC007c [label="oil spillage",TCclass1];
+#TC008 [label="irregular road surface",TCclass1];
+#TC008a [label="gravel or stones",TCclass1];
+#TC008b [label="potholes",TCclass1];
+#TC008c [label="road bumps",TCclass1];
+#TC008d [label="ruts",TCclass1];
+#TC008e [label="blow-ups",TCclass1];
+#TC009 [label="side wind gusts",TCclass1];
+#TC009a [label="bridge deck",TCclass1];
+#TC010 [label="irregular lane markings",TCclass2];
+#TC010a [label="lane markings suddenly disappearing",TCclass2];
+#TC010b [label="dirty lane markings",TCclass2];
+#TC010c [label="broken lane markings",TCclass2];
+#TC010d [label="covered lane markings",TCclass2];
+#TC011 [label="other traffic participants not adhering to rules",TCclass3];
+#TC012 [label="cut-in of faster target vehicle in front of EgoV",TCclass3];
+#TC013 [label="trailing vehicle driving closely behind EgoV",TCclass3];
+#TC014 [label="suddenly appearing obstacle",TCclass3];
+#TC014a [label="previously shadowed traffic participant",TCclass3];
+#TC014b [label="object dropping from bridge/truck",TCclass3];
+#TC014c [label="large animal crossing freeway",TCclass3];
+#TC015 [label="sudden traffic rule change",TCclass2];
+#TC015a [label="start of speed limit area",TCclass2];
+#TC015b [label="start of no passing zone",TCclass2];
+#TC016 [label="LDBM assumption violation",TCclass4];
+#TC016a [label="asymmetric load",TCclass4];
+#TC016b [label="dynamic cornering",TCclass4];
+#TC016c [label="high position of CoG",TCclass4];
+#TC017 [label="chain of vehicles, middle vehicle, first brakes suddenly",TCclass3];
+#TC018 [label="fast approach of slow target vehicle; no lateral avoidance",TCclass3];
+#TC019 [label="rapidly changing traffic situations",TCclass3];
+#TC020 [label="max wind speed × max bank angle",TCclass1];
+#TC021 [label="min friction × min tire cornering stiffness",TCclass1];
+#TC022 [label="[to be determined]",TCclass1];
+#TC022a [label="max front stiffness × min rear stiffness",TCclass1];
+#TC022b [label="min front stiffness × max rear stiffness",TCclass1];
+#TC023 [label="unrecognizable lane markings",TCclass1];
+#TC023a [label="direct sunlight",TCclass1];
+#TC023b [label="lighting change (e.g., tunnel)",TCclass1];
+#TC024 [label="insufficient visibility of lane markings",TCclass1];
+#TC024a [label="snow/ice",TCclass1];
+#TC024b [label="fog",TCclass1];
+#TC025 [label="infrastructure misinterpreted as lane markings",TCclass4];
+#TC025a [label="curbs",TCclass4];
+#TC025b [label="dividers",TCclass4];
+#TC026 [label="slippery road surface",TCclass1];
+#TC026a [label="wet road with foliage",TCclass1];
+#TC026b [label="snowy/icy road",TCclass1];
+#TC027 [label="entering freeway from on-ramp",TCclass2];
+#TC028 [label="exiting freeway via off-ramp",TCclass2];
+#TC029 [label="lane adding situations",TCclass2];
+#TC030 [label="approaching emergency vehicle",TCclass3];
+#TC031 [label="heavy transport / oversized vehicles",TCclass3];
+#TC032 [label="vehicle parking on freeway shoulder",TCclass3];
+#TC033 [label="reckless driver / under the influence",TCclass3];
+#TC034 [label="freeway shoulder not available",TCclass2];
+#TC035 [label="shoulder used as additional lane",TCclass2];
+#TC036 [label="end of freeway",TCclass2];
+#TC037 [label="freeway closure",TCclass2];
+#TC038 [label="steep road slope",TCclass4];
+#TC039 [label="high road curvature",TCclass4];
+#TC040 [label="unknown traffic scenarios/signs in other EU countries",TCclass2];
+
+Functional Insufficiencies:
+
+*FI classification*
+FIclass0: no classification available
+FIClass1: specification insufficiencies
+FIClass2: performance insufficiencies
+
+#FI001  [label="no capability to form a rescue alley",FIclass1];
+#FI002  [label="unusual/illegal/counter-intuitive/dangerous trajectories",FIclass2];
+#FI003  [label="no emergency maneuvers w/o lane change / shoulder",FIclass1];
+#FI004  [label="prediction horizon too short to stop fully",FIclass2];
+#FI005  [label="overly conservative behavior of MPC-TP",FIclass2];
+#FI005a [label="cannot ensure sufficient progress",FIclass2];
+#FI005b [label="cannot avoid deadlocks",FIclass2];
+#FI005c [label="overly conservative braking in cut-in scenarios",FIclass2];
+#FI006  [label="cannot generate feasible collision-free trajectory",FIclass2];
+#FI007  [label="cannot generate drivable trajectory",FIclass2];
+#FI007a [label="due to linear tire model in LDBM",FIclass2];
+#FI007b [label="due to irregular road surface",FIclass2];
+#FI008  [label="receding-horizon + tracking may oscillate/unstable",FIclass2];
+#FI009  [label="ignores trailing traffic; sudden braking may cause collision",FIclass1];
+#FI010  [label="insufficient time to solve FHOCP for new trajectory",FIclass2];
+#FI011  [label="poor approximation of real vehicle behavior by LDBM in OCP",FIclass2];
+#FI012  [label="lack of string stability; chain collisions possible",FIclass2];
+#FI013  [label="lack of recursive feasibility",FIclass2];
+#FI014  [label="cannot generate a solution in some situations at all",FIclass2];
+
+Edges:
+Mark unconnected edges with a "*"
+TC001-->FI001
+TC001-->FI002
+TC002-->FI003
+TC002-->FI002
+TC003-->FI004
+TC004-->FI005a
+TC004-->FI005b
+TC004-->FI002
+TC005-->FI006
+TC006-->FI006
+TC006-->FI002
+TC007-->FI006
+TC007-->FI007a
+TC008a-->FI007b
+TC008b-->FI007b
+TC008c-->FI007b
+TC009-->FI008
+TC010-->FI008
+TC004-->FI005a
+TC004-->FI005b
+TC004-->FI002
+TC011-->FI005a
+TC011-->FI005b
+TC011-->FI002
+TC012-->FI005c
+TC012-->FI006
+TC013-->FI009
+TC014-->FI006
+TC014-->FI002
+TC015-->FI006
+TC015-->FI010
+TC016-->FI011
+TC017-->FI012
+TC018-->FI006
+TC018-->FI013
+TC019-->FI010
+*-->FI014
+TC020-->FI007a
+TC021-->FI007a
+TC022-->FI007a
+TC020-->FI011
+TC021-->FI011
+TC022-->FI011
+TC010a-->*
+TC010b-->*
+TC010c-->*
+TC010d-->*
+TC023a-->*
+TC023b-->*
+TC024a-->*
+TC024b-->*
+TC025a-->*
+TC025b-->*
+TC008b-->*
+TC008c-->*
+TC026-->FI007a
+TC027-->FI010
+TC028-->FI010
+TC029-->FI010
+TC027-->FI006
+TC028-->FI006
+TC029-->FI006
+TC027-->FI002
+TC028-->FI002
+TC029-->FI002
+TC006-->FI002
+TC030-->FI002
+TC031-->FI002
+TC032-->FI002
+TC033-->FI002
+TC006-->FI010
+TC030-->FI010
+TC031-->FI010
+TC032-->FI010
+TC033-->FI010
+TC006-->FI006
+TC030-->FI006
+TC031-->FI006
+TC032-->FI006
+TC033-->FI006
+TC008d-->FI010
+TC088e-->FI010
+TC008d-->FI006
+TC088e-->FI006
+TC008d-->FI002
+TC088e-->FI002
+TC034-->FI002
+TC035-->FI002
+TC036-->FI002
+TC037-->FI002
+TC038-->FI007a
+TC039-->FI007a
+TC038-->FI011
+TC039-->FI011
+TC009-->FI002
+TC009-->FI006
+TC009-->FI010
+TC040-->FI002
+TC040-->FI006
+TC040-->FI010
